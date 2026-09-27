@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.31)
 
 project(yamc C CXX)
 
@@ -9,16 +9,15 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 option(ENABLE_TESTING "Enable unit testing." ON)
 
-if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
-endif()
+add_library(yamc INTERFACE)
+add_library(yamc::yamc ALIAS yamc)
 
-include_directories(include)
+target_include_directories(yamc INTERFACE "${CMAKE_CURRENT_LIST_DIR/include")
 
 if (ENABLE_TESTING)
   enable_testing()
-  add_subdirectory(tests)
+  add_subdirectory("${CMAKE_CURRENT_LIST_DIR/tests")
 endif()
 
-install(DIRECTORY include/ DESTINATION include/yamc/
+install(DIRECTORY "${CMAKE_CURRENT_LIST_DIR/include" DESTINATION "include/yamc"
     FILES_MATCHING PATTERN "*.hpp")
